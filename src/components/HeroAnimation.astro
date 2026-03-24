@@ -1,0 +1,329 @@
+---
+---
+
+<svg
+  viewBox="0 0 480 320"
+  xmlns="http://www.w3.org/2000/svg"
+  class="hero-svg"
+  role="img"
+  aria-labelledby="hero-svg-title"
+>
+  <title id="hero-svg-title">Illustration of a smartphone sending a message through a curved arc to a code editor, representing Claude Channels</title>
+
+  <!-- Phone group -->
+  <g id="phone-group">
+    <rect id="phone-shell" x="40" y="60" width="100" height="180" rx="14" fill="#c0522a" />
+    <rect id="phone-screen" x="48" y="78" width="84" height="140" rx="4" fill="#f5f0e8" />
+    <rect id="screen-line-1" x="58" y="96" width="50" height="6" rx="3" fill="#d5ccbf" />
+    <rect id="screen-line-2" x="58" y="110" width="64" height="6" rx="3" fill="#d5ccbf" />
+    <rect id="screen-line-3" x="58" y="124" width="40" height="6" rx="3" fill="#d5ccbf" />
+    <rect id="home-indicator" x="74" y="228" width="32" height="4" rx="2" fill="#a8441f" />
+  </g>
+
+  <!-- Speech bubble group -->
+  <g id="bubble-group">
+    <path id="bubble" d="M150 100 L170 100 Q185 100 185 115 L185 145 Q185 160 170 160 L160 160 L150 175 L155 160 L150 160 Q135 160 135 145 L135 115 Q135 100 150 100 Z" fill="#c0522a" opacity="0.85" />
+    <rect id="bubble-line-1" x="145" y="116" width="30" height="4" rx="2" fill="#f5f0e8" />
+    <rect id="bubble-line-2" x="145" y="126" width="24" height="4" rx="2" fill="#f5f0e8" />
+    <rect id="bubble-line-3" x="145" y="136" width="18" height="4" rx="2" fill="#f5f0e8" />
+  </g>
+
+  <!-- Curved arc connecting phone to code editor -->
+  <path
+    id="connect-arc"
+    d="M195 140 Q290 40 370 140"
+    fill="none"
+    stroke="#c0522a"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+
+  <!-- Travel dot (rides the arc) -->
+  <circle id="travel-dot" cx="0" cy="0" r="6" fill="#c0522a" />
+
+  <!-- Editor group -->
+  <g id="editor-group">
+    <rect id="editor-frame" x="330" y="80" width="120" height="160" rx="8" fill="#e8e2d6" stroke="#d5ccbf" stroke-width="1.5" />
+    <rect id="editor-titlebar" x="330" y="80" width="120" height="24" rx="8" fill="#d5ccbf" />
+    <rect x="330" y="96" width="120" height="8" fill="#d5ccbf" />
+    <circle id="editor-dot-red" cx="344" cy="92" r="4" fill="#c0522a" />
+    <circle id="editor-dot-yellow" cx="356" cy="92" r="4" fill="#dab87a" />
+    <circle id="editor-dot-green" cx="368" cy="92" r="4" fill="#7a9e8a" />
+    <rect id="code-line-1" x="342" y="116" width="50" height="5" rx="2.5" fill="#7a9e8a" />
+    <rect id="code-line-2" x="342" y="128" width="70" height="5" rx="2.5" fill="#7a9e8a" opacity="0.7" />
+    <rect id="code-line-3" x="352" y="140" width="55" height="5" rx="2.5" fill="#7a9e8a" opacity="0.5" />
+    <rect id="code-line-4" x="352" y="152" width="40" height="5" rx="2.5" fill="#7a9e8a" opacity="0.7" />
+    <rect id="code-line-5" x="342" y="164" width="60" height="5" rx="2.5" fill="#7a9e8a" />
+    <rect id="code-line-6" x="342" y="176" width="45" height="5" rx="2.5" fill="#7a9e8a" opacity="0.5" />
+    <rect id="code-line-7" x="352" y="188" width="50" height="5" rx="2.5" fill="#7a9e8a" opacity="0.7" />
+    <rect id="code-line-8" x="342" y="200" width="35" height="5" rx="2.5" fill="#7a9e8a" />
+  </g>
+
+  <!-- Typing dots (on phone screen) -->
+  <g id="typing-group">
+    <circle id="typing-dot-1" cx="65" cy="145" r="3.5" fill="#c0522a" opacity="0.7" />
+    <circle id="typing-dot-2" cx="78" cy="145" r="3.5" fill="#c0522a" opacity="0.7" />
+    <circle id="typing-dot-3" cx="91" cy="145" r="3.5" fill="#c0522a" opacity="0.7" />
+  </g>
+
+  <!-- Response bubble (on phone screen) -->
+  <g id="response-bubble-group">
+    <rect id="response-bubble" x="54" y="158" width="64" height="32" rx="6" fill="#ede8de" stroke="#c0522a" stroke-width="1.2" />
+    <rect id="response-line-1" x="60" y="166" width="44" height="4" rx="2" fill="#7a9e8a" />
+    <rect id="response-line-2" x="60" y="175" width="32" height="4" rx="2" fill="#7a9e8a" opacity="0.7" />
+  </g>
+</svg>
+
+<style>
+  .hero-svg {
+    width: 100%;
+    max-width: 480px;
+  }
+
+  /* Prevent FOUC — hide elements synchronously before JS loads */
+  #phone-group, #bubble-group, #editor-group, #connect-arc, #travel-dot, #typing-group, #response-bubble-group {
+    opacity: 0;
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+
+  gsap.registerPlugin(MotionPathPlugin);
+
+  function initHeroAnimation() {
+    // Respect reduced motion preference
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      // Restore group visibility (CSS hides them for FOUC prevention)
+      gsap.set(['#phone-group', '#bubble-group', '#editor-group', '#connect-arc'], { opacity: 1 });
+      gsap.set(
+        [
+          '#phone-shell', '#phone-screen', '#screen-line-1', '#screen-line-2', '#screen-line-3',
+          '#home-indicator', '#bubble', '#bubble-line-1', '#bubble-line-2', '#bubble-line-3',
+          '#editor-frame', '#editor-titlebar', '#editor-dot-red', '#editor-dot-yellow', '#editor-dot-green',
+          '#code-line-1', '#code-line-2', '#code-line-3', '#code-line-4',
+          '#code-line-5', '#code-line-6', '#code-line-7', '#code-line-8',
+          '#travel-dot'
+        ],
+        { opacity: 1, clearProps: 'transform' }
+      );
+      const arc = document.querySelector('#connect-arc') as SVGPathElement | null;
+      if (arc) {
+        arc.style.strokeDasharray = 'none';
+        arc.style.strokeDashoffset = '0';
+      }
+      return null;
+    }
+
+    const ctx = gsap.context(() => {
+      // Measure arc length for strokeDashoffset animation (DrawSVG fallback)
+      const arcEl = document.querySelector('#connect-arc') as SVGPathElement | null;
+      const arcLength = arcEl ? arcEl.getTotalLength() : 250;
+
+      // --- Step 1: restore group visibility (CSS set them to opacity:0 for FOUC prevention) ---
+      gsap.set(['#phone-group', '#bubble-group', '#editor-group', '#connect-arc'], { opacity: 1 });
+
+      // --- Step 2: hide individual children so fromTo() entrance tweens work correctly ---
+      gsap.set([
+        '#phone-shell', '#phone-screen', '#screen-line-1', '#screen-line-2', '#screen-line-3', '#home-indicator',
+        '#bubble', '#bubble-line-1', '#bubble-line-2', '#bubble-line-3',
+        '#editor-frame', '#editor-titlebar', '#editor-dot-red', '#editor-dot-yellow', '#editor-dot-green',
+        '#code-line-1', '#code-line-2', '#code-line-3', '#code-line-4',
+        '#code-line-5', '#code-line-6', '#code-line-7', '#code-line-8'
+      ], { opacity: 0 });
+
+      // --- Step 3: arc hidden via strokeDashoffset ---
+      gsap.set('#connect-arc', { strokeDasharray: arcLength, strokeDashoffset: arcLength });
+
+      // --- Step 4: set transformOrigins explicitly (unreliable inside SVG tweens) ---
+      gsap.set('#phone-shell', { transformOrigin: 'center center' });
+      gsap.set('#bubble', { transformOrigin: '0% 50%' });
+      gsap.set('#editor-frame', { transformOrigin: 'center center' });
+      gsap.set(['#editor-dot-red', '#editor-dot-yellow', '#editor-dot-green'], { transformOrigin: 'center center' });
+      gsap.set('#response-bubble', { transformOrigin: '0% 100%' });
+
+      // --- Entrance timeline ---
+      const tl = gsap.timeline({ defaults: { overwrite: 'auto' } });
+
+      // Phone shell
+      tl.fromTo('#phone-shell',
+        { x: -30, scale: 0.8, opacity: 0 },
+        { x: 0, scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.7)' }
+      )
+      // Phone screen
+      .fromTo('#phone-screen',
+        { opacity: 0 },
+        { opacity: 1, duration: 0.35, ease: 'power2.out' },
+        '<0.2'
+      )
+      // Screen lines
+      .fromTo(['#screen-line-1', '#screen-line-2', '#screen-line-3'],
+        { y: 6, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.25, ease: 'power2.out', stagger: 0.1 },
+        '<0.2'
+      )
+      // Home indicator
+      .fromTo('#home-indicator',
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: 'power2.out' },
+        '<'
+      )
+      // Speech bubble (target opacity 0.85 to match SVG attribute)
+      .fromTo('#bubble',
+        { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 0.85, duration: 0.4, ease: 'back.out(1.7)' },
+        '<0.15'
+      )
+      // Bubble lines
+      .fromTo(['#bubble-line-1', '#bubble-line-2', '#bubble-line-3'],
+        { opacity: 0 },
+        { opacity: 1, duration: 0.2, ease: 'power2.out', stagger: 0.1 },
+        '<0.2'
+      )
+      // Connect arc (DrawSVG fallback via strokeDashoffset)
+      .to('#connect-arc', {
+        strokeDashoffset: 0, duration: 1.2, ease: 'power1.inOut'
+      }, '<0.35')
+      // Editor frame
+      .fromTo('#editor-frame',
+        { x: 30, scale: 0.85, opacity: 0 },
+        { x: 0, scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.7)' },
+        '<0.8'
+      )
+      // Editor titlebar
+      .fromTo('#editor-titlebar',
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: 'power2.out' },
+        '<0.2'
+      )
+      // Editor dots
+      .fromTo(['#editor-dot-red', '#editor-dot-yellow', '#editor-dot-green'],
+        { scale: 0, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.25, ease: 'back.out(1.7)', stagger: 0.08 },
+        '<0.1'
+      )
+      // Code lines
+      .fromTo(
+        ['#code-line-1', '#code-line-2', '#code-line-3', '#code-line-4',
+         '#code-line-5', '#code-line-6', '#code-line-7', '#code-line-8'],
+        { x: 8, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.2, ease: 'power2.out', stagger: 0.07 },
+        '<0.15'
+      )
+      .addLabel('idle');
+
+      // --- Idle loops (start at 'idle' label) ---
+
+      // Float tweens (continuous)
+      gsap.to('#phone-group', {
+        y: -7, duration: 3.0, ease: 'sine.inOut',
+        repeat: -1, yoyo: true, delay: tl.labels['idle']
+      });
+      gsap.to('#bubble-group', {
+        y: -7, duration: 3.0, ease: 'sine.inOut',
+        repeat: -1, yoyo: true, delay: tl.labels['idle']
+      });
+      gsap.to('#editor-group', {
+        y: 5, duration: 3.4, ease: 'sine.inOut',
+        repeat: -1, yoyo: true, delay: tl.labels['idle'] + 0.6
+      });
+
+      // --- Narrative loop with 4 code states ---
+      const ids = ['#code-line-1', '#code-line-2', '#code-line-3', '#code-line-4',
+                   '#code-line-5', '#code-line-6', '#code-line-7', '#code-line-8'];
+      const states = [
+        [50, 70, 55, 40, 60, 45, 50, 35],  // state 0 — original
+        [65, 45, 68, 55, 38, 60, 42, 56],  // state 1
+        [40, 75, 45, 65, 55, 35, 60, 50],  // state 2
+        [58, 35, 72, 48, 65, 52, 35, 62],  // state 3
+      ];
+      const opacities = [1, 0.7, 0.5, 0.7, 1, 0.5, 0.7, 1];
+
+      function addTurn(tl: gsap.core.Timeline, widths: number[]) {
+        // BEAT 1 — typing dots
+        tl.set('#typing-group', { opacity: 1 })
+          .fromTo(['#typing-dot-1', '#typing-dot-2', '#typing-dot-3'],
+            { y: 0 },
+            { y: -5, duration: 0.28, ease: 'sine.out', yoyo: true, repeat: 3, stagger: 0.12 }
+          )
+          .to('#typing-group', { opacity: 0, duration: 0.2 });
+
+        // BEAT 2 — dot travels L→R
+        tl.set('#travel-dot', { opacity: 1 })
+          .to('#travel-dot', {
+            motionPath: {
+              path: '#connect-arc', align: '#connect-arc',
+              alignOrigin: [0.5, 0.5], autoRotate: false,
+              start: 0, end: 1
+            },
+            duration: 1.4, ease: 'power2.inOut'
+          })
+          .set('#travel-dot', { opacity: 0 });
+
+        // BEAT 3 — code rewrite
+        tl.to(ids, { opacity: 0.1, duration: 0.3, stagger: 0.04 });
+        ids.forEach((id, i) => {
+          tl.to(id, {
+            attr: { width: widths[i] },
+            opacity: opacities[i],
+            duration: 0.2,
+            ease: 'power2.out'
+          }, i === 0 ? '>' : '>-0.12');
+        });
+        tl.to({}, { duration: 0.5 }); // pause between rewrite and return
+
+        // BEAT 4 — dot travels R→L
+        tl.set('#travel-dot', { opacity: 1 })
+          .to('#travel-dot', {
+            motionPath: {
+              path: '#connect-arc', align: '#connect-arc',
+              alignOrigin: [0.5, 0.5], autoRotate: false,
+              start: 1, end: 0
+            },
+            duration: 1.4, ease: 'power2.inOut'
+          })
+          .set('#travel-dot', { opacity: 0 });
+
+        // BEAT 5 — response bubble appears
+        tl.set('#response-bubble-group', { opacity: 1 })
+          .fromTo('#response-bubble',
+            { scale: 0, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.35, ease: 'back.out(1.7)' }
+          )
+          .fromTo(['#response-line-1', '#response-line-2'],
+            { x: -5, opacity: 0 },
+            { x: 0, opacity: 1, duration: 0.2, stagger: 0.1, ease: 'power2.out' }
+          )
+          .to({}, { duration: 1.8 }) // hold
+          .to('#response-bubble-group', { opacity: 0, duration: 0.3 });
+      }
+
+      const loop = gsap.timeline({ repeat: -1, delay: tl.labels['idle'] + 0.8 });
+      addTurn(loop, states[1]); // turn 1: editor shows state 1
+      addTurn(loop, states[2]); // turn 2: editor shows state 2
+      addTurn(loop, states[3]); // turn 3: editor shows state 3
+      addTurn(loop, states[0]); // turn 4: returns to original — loop repeats from turn 1
+    });
+
+    return ctx;
+  }
+
+  // Astro lifecycle hooks for View Transitions compatibility
+  let heroCtx: gsap.Context | null = null;
+
+  document.addEventListener('astro:after-swap', () => {
+    heroCtx?.revert();
+    heroCtx = null;
+  });
+
+  document.addEventListener('astro:page-load', () => {
+    heroCtx = initHeroAnimation();
+  });
+
+  // Initialize immediately — module scripts are deferred so DOM is ready.
+  // astro:page-load only fires with View Transitions enabled; this ensures
+  // the animation works without them. The page-load listener handles re-init
+  // after View Transition swaps.
+  heroCtx = initHeroAnimation();
+</script>

@@ -1,0 +1,29 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+</head>
+<body>
+  <slot />
+
+  <footer>
+    <p>&copy; 2026 Claude Channels</p>
+    <p class="footer-blurb">Every word on this page arrived as a plain-English Discord message. No terminal. No pull requests. That's the point.</p>
+  </footer>
+</body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>
+

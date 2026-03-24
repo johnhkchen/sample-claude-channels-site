@@ -1,0 +1,277 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HeroAnimation from '../components/HeroAnimation.astro';
+import { getCollection } from 'astro:content';
+
+const articles = await getCollection('articles');
+
+const articleOrder = ['middleman', 'race', 'people-not-pipelines'];
+const sortedArticles = articleOrder
+  .map((id) => articles.find((a) => a.id === id))
+  .filter(Boolean);
+---
+
+<Layout title="Claude Channels — Talk to Your Codebase from Anywhere">
+  <section id="hero">
+    <div class="hero-flex">
+      <div class="hero-text">
+        <h1>Talk to Your Codebase from Discord or Telegram</h1>
+        <p>Send a message, and Claude edits real code on your machine. No terminal. No context-switching. Just results in the same conversation.</p>
+        <a href="https://code.claude.com/docs/en/channels" class="cta cta-large" target="_blank" rel="noopener">Set Up Claude Channels</a>
+      </div>
+      <div class="hero-visual">
+        <HeroAnimation />
+      </div>
+    </div>
+  </section>
+
+  <section id="what-is-it">
+    <h2>What is Claude Channels?</h2>
+    <p class="section-intro">Claude Channels connects messaging apps to your local dev environment. A request arrives from your phone, a group chat, or a shared channel — Claude Code acts on your actual codebase and replies in the same thread.</p>
+    <p class="section-body">Designers, PMs, and on-call engineers task Claude directly from tools they already use. No tickets, no developer as go-between — just a message and a result.</p>
+    <div class="platform-row">
+      <div class="platform-chip">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-label="Discord">
+          <path d="M15.5 4.5a13.2 13.2 0 0 0-3.3-1 9.7 9.7 0 0 0-.4.8 12.3 12.3 0 0 0-3.6 0 6.5 6.5 0 0 0-.4-.8A13 13 0 0 0 4.5 4.5 14 14 0 0 0 2 13.8a13.3 13.3 0 0 0 4 2 10 10 0 0 0 .9-1.4 8.6 8.6 0 0 1-1.4-.7l.3-.3a9.4 9.4 0 0 0 8.4 0l.3.3a8.8 8.8 0 0 1-1.4.7 9.7 9.7 0 0 0 .9 1.4 13.2 13.2 0 0 0 4-2A13.9 13.9 0 0 0 15.5 4.5zM7.7 12a1.6 1.6 0 0 1-1.5-1.7A1.6 1.6 0 0 1 7.7 8.6a1.6 1.6 0 0 1 1.5 1.7A1.6 1.6 0 0 1 7.7 12zm4.6 0a1.6 1.6 0 0 1-1.5-1.7 1.6 1.6 0 0 1 1.5-1.7 1.6 1.6 0 0 1 1.5 1.7A1.6 1.6 0 0 1 12.3 12z" fill="#5865F2"/>
+        </svg>
+        Discord
+      </div>
+      <div class="platform-chip">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-label="Telegram">
+          <path d="M2 10L18 2L13 18L9 12Z" fill="#2CA5E0"/>
+          <path d="M9 12L8 16L13 18" fill="#1E96C8"/>
+          <path d="M9 12L18 2" stroke="#fff" stroke-width="0.8" fill="none"/>
+        </svg>
+        Telegram
+      </div>
+      <span class="platform-note">Research preview &middot; March 2026</span>
+    </div>
+  </section>
+
+  <section id="why-it-matters">
+    <h2>Why This Matters</h2>
+    <ul class="timeline timeline-vertical timeline-compact tl-custom">
+      <!-- Context: big ideas -->
+      <li>
+        <hr />
+        <div class="timeline-middle">
+          <svg class="tl-icon tl-icon-context" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <rect x="3" y="2" width="14" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="6" y1="6" x2="14" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="6" y1="10" x2="14" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="6" y1="14" x2="11" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="timeline-end timeline-box tl-entry">
+          <a class="tl-link" href="https://darioamodei.com/essay/machines-of-loving-grace" target="_blank" rel="noopener">
+            <span class="tl-date">Oct 2024</span>
+            <span class="tl-title">Machines of Loving Grace</span>
+            <span class="tl-source">Dario Amodei, Anthropic</span>
+            <span class="tl-teaser">"We can make at least a down payment on the promises of dignity and equality that we owe to every human being on earth."</span>
+          </a>
+        </div>
+        <hr />
+      </li>
+      <li>
+        <hr />
+        <div class="timeline-middle">
+          <svg class="tl-icon tl-icon-context" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <rect x="3" y="2" width="14" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="6" y1="6" x2="14" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="6" y1="10" x2="14" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="6" y1="14" x2="11" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="timeline-end timeline-box tl-entry">
+          <a class="tl-link" href="https://www.oneusefulthing.org/p/the-cybernetic-teammate" target="_blank" rel="noopener">
+            <span class="tl-date">Mar 2025</span>
+            <span class="tl-title">The Cybernetic Teammate</span>
+            <span class="tl-source">Ethan Mollick</span>
+            <span class="tl-teaser">In controlled studies, AI closed the gap between junior and senior employees. People didn't just work faster — they thought beyond their specialized training.</span>
+          </a>
+        </div>
+        <hr />
+      </li>
+      <li>
+        <hr />
+        <div class="timeline-middle">
+          <svg class="tl-icon tl-icon-context" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <rect x="3" y="2" width="14" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="6" y1="6" x2="14" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="6" y1="10" x2="14" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="6" y1="14" x2="11" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="timeline-end timeline-box tl-entry">
+          <a class="tl-link" href="https://blog.samaltman.com/the-gentle-singularity" target="_blank" rel="noopener">
+            <span class="tl-date">Jun 2025</span>
+            <span class="tl-title">The Gentle Singularity</span>
+            <span class="tl-source">Sam Altman</span>
+            <span class="tl-teaser">Intelligence as ambient utility — too cheap to meter, requiring no technical prerequisites. The transition happens through steady removal of friction, not a single breakthrough.</span>
+          </a>
+        </div>
+        <hr />
+      </li>
+      <li>
+        <hr />
+        <div class="timeline-middle">
+          <svg class="tl-icon tl-icon-context" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <rect x="3" y="2" width="14" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="6" y1="6" x2="14" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="6" y1="10" x2="14" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="6" y1="14" x2="11" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="timeline-end timeline-box tl-entry">
+          <a class="tl-link" href="https://www.lennysnewsletter.com/p/everyone-should-be-using-claude-code" target="_blank" rel="noopener">
+            <span class="tl-date">Oct 2025</span>
+            <span class="tl-title">Everyone Should Be Using Claude Code More</span>
+            <span class="tl-source">Lenny Rachitsky</span>
+            <span class="tl-teaser">"What if I don't have a 'coding project'?" — Helen Lee Kupp asked what most non-developers think. Rachitsky's answer: Claude Code isn't about coding. It's about getting things done.</span>
+          </a>
+        </div>
+        <hr />
+      </li>
+      <!-- Events: industry racing -->
+      <li>
+        <hr />
+        <div class="timeline-middle">
+          <svg class="tl-icon tl-icon-event" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <polygon points="10,2 12.5,8 19,8 14,12 16,19 10,15 4,19 6,12 1,8 7.5,8" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="timeline-end timeline-box tl-entry tl-entry-event">
+          <a class="tl-link" href="https://karpathy.bearblog.dev/year-in-review-2025/" target="_blank" rel="noopener">
+            <span class="tl-date">Dec 2025</span>
+            <span class="tl-title">2025 LLM Year in Review</span>
+            <span class="tl-source">Andrej Karpathy</span>
+            <span class="tl-teaser">Karpathy coined "vibe coding" — Collins Dictionary's Word of the Year 2025. Describing what you want is now sufficient to build it. The gatekeeper era is over.</span>
+          </a>
+        </div>
+        <hr />
+      </li>
+      <li>
+        <hr />
+        <div class="timeline-middle">
+          <svg class="tl-icon tl-icon-event" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <polygon points="10,2 12.5,8 19,8 14,12 16,19 10,15 4,19 6,12 1,8 7.5,8" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="timeline-end timeline-box tl-entry tl-entry-event">
+          <a class="tl-link" href="https://a16z.com/notes-on-ai-apps-in-2026/" target="_blank" rel="noopener">
+            <span class="tl-date">Jan 2026</span>
+            <span class="tl-title">Notes on AI Apps in 2026</span>
+            <span class="tl-source">Anish Acharya, a16z</span>
+            <span class="tl-teaser">"Every team should be a software team." The command line held back everyday users from the best AI capabilities — the winners will be the tools that eliminate it.</span>
+          </a>
+        </div>
+        <hr />
+      </li>
+      <!-- Our analysis articles -->
+      {sortedArticles.map((article) => (
+        <li>
+          <hr />
+          <div class="timeline-middle">
+            <svg class="tl-icon tl-icon-event" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <polygon points="10,2 12.5,8 19,8 14,12 16,19 10,15 4,19 6,12 1,8 7.5,8" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="timeline-end timeline-box tl-entry tl-entry-event">
+            <a class="tl-link" href={`/articles/${article!.id}`}>
+              <span class="tl-date">Our Analysis</span>
+              <span class="tl-title">{article!.data.title}</span>
+              <span class="tl-teaser">{article!.data.cardSummary}</span>
+            </a>
+          </div>
+          <hr />
+        </li>
+      ))}
+      <!-- Culmination: Claude Channels -->
+      <li>
+        <hr />
+        <div class="timeline-middle">
+          <svg class="tl-icon tl-icon-channels" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+            <circle cx="11" cy="11" r="9" fill="#c0522a" stroke="#c0522a" stroke-width="2"/>
+            <path d="M7 11l2.5 2.5L15 9" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="timeline-end timeline-box tl-entry tl-entry-channels">
+          <span class="tl-date">Mar 2026</span>
+          <span class="tl-title">Claude Channels ships</span>
+          <span class="tl-teaser">Anthropic's answer: embed Claude directly into Discord and Telegram, connected to your real codebase. No new app. No terminal. Just a message in a thread you already have open.</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="voices">
+    <h2>Voices</h2>
+    <p class="section-intro">Researchers, investors, and builders arriving at the same conclusion: the interface is the bottleneck, not the model.</p>
+    <div class="quotes-grid">
+      <figure class="pull-quote">
+        <blockquote>"Everyone is a programmer because everyone speaks natural language."</blockquote>
+        <figcaption>Andrej Karpathy, YC AI 2025</figcaption>
+      </figure>
+      <figure class="pull-quote">
+        <blockquote>"The command line UI has held back everyday consumers from the best capabilities of AI."</blockquote>
+        <figcaption>Anish Acharya, a16z, Jan 2026</figcaption>
+      </figure>
+      <figure class="pull-quote">
+        <blockquote>"AI effectively helped people bridge functional knowledge gaps, allowing them to think beyond their specialized training."</blockquote>
+        <figcaption>Ethan Mollick, Mar 2025</figcaption>
+      </figure>
+      <figure class="pull-quote">
+        <blockquote>"If we do, we can make at least a down payment on the promises of dignity and equality that we owe to every human being on earth."</blockquote>
+        <figcaption>Dario Amodei, "Machines of Loving Grace," Oct 2024</figcaption>
+      </figure>
+      <figure class="pull-quote">
+        <blockquote>"Humans plus AI together actually create more meaningful work, more challenging work, more interesting work. It will also open the aperture to a lot of access and opportunity for many people."</blockquote>
+        <figcaption>Daniela Amodei, Fortune, Feb 2026</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="how-it-works">
+    <h2>How It Works</h2>
+    <div class="cards">
+      <div class="card">
+        <svg class="step-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M10 18a4 4 0 0 1 0-8h4a4 4 0 0 1 0 8" stroke="#c0522a" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M22 14a4 4 0 0 1 0 8h-4a4 4 0 0 1 0-8" stroke="#c0522a" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="14" y1="14" x2="18" y2="14" stroke="#c0522a" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="14" y1="18" x2="18" y2="18" stroke="#c0522a" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <h3>Connect</h3>
+        <p>Link Claude Code to Discord or Telegram. Five minutes.</p>
+      </div>
+      <div class="card">
+        <svg class="step-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M8 4h16q4 0 4 4v10q0 4-4 4h-9l-5 5v-5H8q-4 0-4-4V8q0-4 4-4z" stroke="#c0522a" stroke-width="2.5" stroke-linejoin="round"/>
+          <line x1="9" y1="11" x2="23" y2="11" stroke="#c0522a" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="9" y1="16" x2="18" y2="16" stroke="#c0522a" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <h3>Message</h3>
+        <p>Describe what you need in plain English — from your phone, your desktop, wherever.</p>
+      </div>
+      <div class="card">
+        <svg class="step-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <circle cx="16" cy="16" r="10" stroke="#c0522a" stroke-width="2.5"/>
+          <path d="M11 16l3.5 3.5L21 13" stroke="#c0522a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>Done</h3>
+        <p>Claude edits your code, runs tests, and replies — all in the same thread.</p>
+      </div>
+    </div>
+    <div class="cta-bridge">
+      <a href="https://code.claude.com/docs/en/channels" class="cta cta-large" target="_blank" rel="noopener">Set Up Claude Channels</a>
+      <p class="cta-note">Takes about 5 minutes &middot; No API key required &middot; Requires Claude Code 2.1.80+</p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .step-icon {
+    display: block;
+    margin: 0 auto 0.75rem;
+  }
+</style>

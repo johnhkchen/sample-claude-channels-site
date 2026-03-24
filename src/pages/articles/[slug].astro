@@ -1,0 +1,66 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+const hasExternal = !!article.data.externalUrl;
+---
+
+<Layout title={`${article.data.title} — Claude Channels`}>
+  <main class="detail-page">
+    <a class="back-link" href="/">&larr; Back to Claude Channels</a>
+
+    <div class="detail-hero">
+      <h1>{article.data.title}</h1>
+      <p class="subtitle">{article.data.subtitle}</p>
+    </div>
+
+    {hasExternal && (
+      <a class="external-link" href={article.data.externalUrl} target="_blank" rel="noopener">Read the original &rarr;</a>
+    )}
+
+    {hasExternal && (
+      <p class="attribution-note">The following is our summary and analysis of the original article.</p>
+    )}
+
+    <div class="detail-body">
+      <Content />
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .external-link {
+    display: inline-block;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #c0522a;
+    text-decoration: none;
+    border: 1.5px solid #c0522a;
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .external-link:hover {
+    background: #c0522a;
+    color: #fff;
+  }
+
+  .attribution-note {
+    font-size: 0.8rem;
+    color: #8a7d6e;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+</style>
