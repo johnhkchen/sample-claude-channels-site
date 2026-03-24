@@ -13,9 +13,6 @@
   --color-channels-muted: #8a7d6e;
 }
 
-@utility timeline-accent {
-  --timeline-color: var(--color-channels-primary);
-}
 
 * {
   margin: 0;
@@ -214,49 +211,221 @@ h2 {
   text-align: center;
 }
 
-/* Article list */
-.article-list {
+/* Card Stack Timeline */
+.tl-stack {
+  margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
-  margin-top: 1rem;
+  gap: 1.85rem;
+  position: relative;
+  padding-left: 2.5rem;
 }
 
-.article-item {
+/* Vertical spine line */
+.tl-stack::before {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(192, 82, 42, 0.25);
+}
+
+/* Dot connector on the spine */
+.tl-dot {
+  position: absolute;
+  left: calc(-2.5rem - 7px);
+  top: 1.1rem;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  background: #f5f0e8;
+  border-radius: 8px;
+}
+
+.tl-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 0 0 1px rgba(92, 61, 46, 0.1),
+    0 2px 8px rgba(92, 61, 46, 0.15),
+    0 0 12px rgba(255, 255, 255, 0.2);
+}
+
+/* "Our Take" solid dot on the spine */
+.tl-dot-article {
+  position: absolute;
+  left: -2.5rem;
+  top: 1.25rem;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.tl-dot-article::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #c0522a;
+  box-shadow:
+    0 2px 4px rgba(192, 82, 42, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Base card */
+.tl-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid #ddd5c8;
+  gap: 0.4rem;
+  border-radius: 18px;
+  padding: 1.25rem 1.5rem;
+}
+
+/* Research / thinker cards — Claymorphism */
+.tl-card-research {
+  background: #f5f0e8;
+  box-shadow:
+    0 6px 16px rgba(92, 61, 46, 0.1),
+    0 2px 4px rgba(92, 61, 46, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.tl-card-research .tl-icon {
+  color: #8a7d6e;
+}
+
+/* Event / industry / analysis cards — lighter, translucent */
+.tl-card-event {
+  background: rgba(237, 232, 222, 0.65);
+  border: 1px solid rgba(213, 204, 191, 0.5);
+  box-shadow: 0 2px 8px rgba(92, 61, 46, 0.06);
+}
+
+.tl-card-event .tl-icon {
+  color: #c0522a;
+}
+
+/* Shared link styles */
+.tl-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
   text-decoration: none;
   color: inherit;
+  position: relative;
 }
 
-.article-item:last-child {
-  border-bottom: none;
+.tl-link:hover .tl-title {
+  color: #c0522a;
 }
 
-.article-item:hover {
-  opacity: 0.7;
-}
-
-.article-source {
-  font-size: 0.72rem;
-  font-weight: 600;
+/* Arrow icon for "Our Take" cards */
+.tl-arrow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.9rem;
+  line-height: 1;
   color: #8a7d6e;
+  transition: color 0.15s;
+}
+
+.tl-link:hover .tl-arrow {
+  color: #c0522a;
+}
+
+/* Typography */
+.tl-date {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #c0522a;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 
-.article-title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #2c1a0e;
+.tl-source {
+  font-size: 0.72rem;
+  color: #a39888;
+  font-weight: 500;
 }
 
-.article-teaser {
+.tl-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2c1a0e;
+  transition: color 0.15s;
+}
+
+.tl-teaser {
   font-size: 0.875rem;
   color: #5c3d2e;
-  line-height: 1.5;
+  line-height: 1.65;
+}
+
+.tl-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #c0522a;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 1px solid #c0522a;
+  border-radius: 3px;
+  padding: 0.1rem 0.4rem;
+  width: fit-content;
+}
+
+/* Culmination: Claude Channels */
+.tl-card-channels {
+  background: #c0522a;
+  border-radius: 18px;
+  padding: 1.75rem 2rem;
+  box-shadow:
+    0 8px 24px rgba(192, 82, 42, 0.3),
+    0 2px 6px rgba(192, 82, 42, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.tl-card-channels .tl-dot .tl-icon {
+  filter: drop-shadow(0 2px 6px rgba(192, 82, 42, 0.4));
+}
+
+.tl-card-channels .tl-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.tl-card-channels .tl-date {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tl-card-channels .tl-title {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.tl-card-channels .tl-teaser {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+/* Spine ends at the channels card */
+.tl-card-channels ~ .tl-card {
+  display: none;
 }
 
 /* Voices / Quotes */
@@ -265,10 +434,33 @@ h2 {
   padding-top: 3rem;
 }
 
+.voices-label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #c0522a;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.voices-heading {
+  text-align: left;
+  margin-bottom: 0.75rem;
+}
+
+.voices-intro {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: #5c3d2e;
+  max-width: 640px;
+  margin-bottom: 2.5rem;
+}
+
 .quotes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
+  gap: 1.75rem;
 }
 
 @media (min-width: 769px) {
@@ -277,27 +469,60 @@ h2 {
   }
 }
 
-.pull-quote {
+/* Voice cards — glassmorphic tweet style */
+.voice-card {
   margin: 0;
-  padding: 1.25rem;
-  background: #ede8de;
-  border-left: 3px solid #c0522a;
-  border-radius: 0 6px 6px 0;
+  padding: 1.5rem;
+  background: rgba(237, 232, 222, 0.65);
+  border: 1px solid rgba(213, 204, 191, 0.5);
+  box-shadow: 0 2px 8px rgba(92, 61, 46, 0.06);
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-.pull-quote blockquote {
+.voice-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(213, 204, 191, 0.5);
+}
+
+.voice-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.voice-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.voice-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2c1a0e;
+}
+
+.voice-role {
+  font-size: 0.7rem;
+  color: #8a7d6e;
+  font-weight: 500;
+}
+
+.voice-card blockquote {
   font-size: 0.95rem;
   line-height: 1.6;
   color: #2c1a0e;
   font-style: italic;
-  margin: 0 0 0.75rem;
+  margin: 0;
   quotes: none;
-}
-
-.pull-quote figcaption {
-  font-size: 0.75rem;
-  color: #8a7d6e;
-  font-weight: 600;
 }
 
 /* Cards */
@@ -499,6 +724,16 @@ footer {
   color: #8a7d6e;
   font-size: 0.85rem;
   border-top: 1px solid #ddd5c8;
+}
+
+.footer-link {
+  color: #8a7d6e;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.footer-link:hover {
+  color: #c0522a;
 }
 
 .footer-blurb {

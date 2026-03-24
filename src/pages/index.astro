@@ -1,14 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import HeroAnimation from '../components/HeroAnimation.astro';
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
+import { people } from '../data/people';
+import type { PersonId } from '../data/people';
 
 const articles = await getCollection('articles');
 
-const articleOrder = ['middleman', 'race', 'people-not-pipelines'];
-const sortedArticles = articleOrder
-  .map((id) => articles.find((a) => a.id === id))
-  .filter(Boolean);
+const articleMap = Object.fromEntries(articles.map((a) => [a.id, a]));
 ---
 
 <Layout title="Claude Channels — Talk to Your Codebase from Anywhere">
@@ -50,183 +50,186 @@ const sortedArticles = articleOrder
 
   <section id="why-it-matters">
     <h2>Why This Matters</h2>
-    <ul class="timeline timeline-vertical timeline-compact tl-custom">
-      <!-- Context: big ideas -->
-      <li>
-        <hr />
-        <div class="timeline-middle">
-          <svg class="tl-icon tl-icon-context" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <rect x="3" y="2" width="14" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/>
-            <line x1="6" y1="6" x2="14" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="6" y1="10" x2="14" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="6" y1="14" x2="11" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
+    <div class="tl-stack">
+      <div class="tl-card tl-card-research">
+        <div class="tl-dot">
+          <Image class="tl-avatar" src={people['ethan-mollick'].headshot} alt={people['ethan-mollick'].name} width={96} height={96} quality={85} />
         </div>
-        <div class="timeline-end timeline-box tl-entry">
-          <a class="tl-link" href="https://darioamodei.com/essay/machines-of-loving-grace" target="_blank" rel="noopener">
-            <span class="tl-date">Oct 2024</span>
-            <span class="tl-title">Machines of Loving Grace</span>
-            <span class="tl-source">Dario Amodei, Anthropic</span>
-            <span class="tl-teaser">"We can make at least a down payment on the promises of dignity and equality that we owe to every human being on earth."</span>
+        <a class="tl-link" href="https://www.oneusefulthing.org/p/the-cybernetic-teammate" target="_blank" rel="noopener">
+          <span class="tl-arrow" aria-hidden="true">&#8599;</span>
+          <span class="tl-date">Mar 2025</span>
+          <span class="tl-title">The Cybernetic Teammate</span>
+          <span class="tl-source">Ethan Mollick</span>
+          <span class="tl-teaser">In controlled studies, AI closed the gap between junior and senior employees. People didn't just work faster — they started thinking beyond their specialized training.</span>
+        </a>
+      </div>
+
+      <div class="tl-card tl-card-research">
+        <div class="tl-dot">
+          <Image class="tl-avatar" src={people['sam-altman'].headshot} alt={people['sam-altman'].name} width={96} height={96} quality={85} />
+        </div>
+        <a class="tl-link" href="https://blog.samaltman.com/the-gentle-singularity" target="_blank" rel="noopener">
+          <span class="tl-arrow" aria-hidden="true">&#8599;</span>
+          <span class="tl-date">Jun 2025</span>
+          <span class="tl-title">The Gentle Singularity</span>
+          <span class="tl-source">Sam Altman</span>
+          <span class="tl-teaser">Intelligence as ambient utility — too cheap to meter, no technical prerequisites. The transition happens through steady removal of friction, not a single breakthrough.</span>
+        </a>
+      </div>
+
+      <div class="tl-card tl-card-research">
+        <div class="tl-dot">
+          <Image class="tl-avatar" src={people['lenny-rachitsky'].headshot} alt={people['lenny-rachitsky'].name} width={96} height={96} quality={85} />
+        </div>
+        <a class="tl-link" href="https://www.lennysnewsletter.com/p/everyone-should-be-using-claude-code" target="_blank" rel="noopener">
+          <span class="tl-arrow" aria-hidden="true">&#8599;</span>
+          <span class="tl-date">Oct 2025</span>
+          <span class="tl-title">Everyone Should Be Using Claude Code More</span>
+          <span class="tl-source">Lenny Rachitsky</span>
+          <span class="tl-teaser">"What if I don't have a 'coding project'?" Helen Lee Kupp asked what most non-developers were thinking. Rachitsky's answer: Claude Code isn't about coding — it's about getting things done.</span>
+        </a>
+      </div>
+
+      <!-- Our Take: The End of the Middleman (Nov 2025 — after Lenny's piece) -->
+      {articleMap['middleman'] && (
+        <div class="tl-card tl-card-event">
+          <div class="tl-dot-article" aria-hidden="true"></div>
+          <a class="tl-link" href={`/articles/${articleMap['middleman'].id}`}>
+            <span class="tl-arrow" aria-hidden="true">&#8599;</span>
+            <span class="tl-label">Our Take</span>
+            <span class="tl-date">{articleMap['middleman'].data.date}</span>
+            <span class="tl-title">{articleMap['middleman'].data.title}</span>
+            <span class="tl-teaser">{articleMap['middleman'].data.cardSummary}</span>
           </a>
         </div>
-        <hr />
-      </li>
-      <li>
-        <hr />
-        <div class="timeline-middle">
-          <svg class="tl-icon tl-icon-context" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <rect x="3" y="2" width="14" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/>
-            <line x1="6" y1="6" x2="14" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="6" y1="10" x2="14" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="6" y1="14" x2="11" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
+      )}
+
+      <!-- Industry events — lighter translucent cards -->
+      <div class="tl-card tl-card-event">
+        <div class="tl-dot">
+          <Image class="tl-avatar" src={people['andrej-karpathy'].headshot} alt={people['andrej-karpathy'].name} width={96} height={96} quality={85} />
         </div>
-        <div class="timeline-end timeline-box tl-entry">
-          <a class="tl-link" href="https://www.oneusefulthing.org/p/the-cybernetic-teammate" target="_blank" rel="noopener">
-            <span class="tl-date">Mar 2025</span>
-            <span class="tl-title">The Cybernetic Teammate</span>
-            <span class="tl-source">Ethan Mollick</span>
-            <span class="tl-teaser">In controlled studies, AI closed the gap between junior and senior employees. People didn't just work faster — they thought beyond their specialized training.</span>
+        <a class="tl-link" href="https://karpathy.bearblog.dev/year-in-review-2025/" target="_blank" rel="noopener">
+          <span class="tl-arrow" aria-hidden="true">&#8599;</span>
+          <span class="tl-date">Dec 2025</span>
+          <span class="tl-title">2025 LLM Year in Review</span>
+          <span class="tl-source">Andrej Karpathy</span>
+          <span class="tl-teaser">Karpathy coined "vibe coding," which became Collins Dictionary's Word of the Year. His argument: describing what you want is now sufficient to build it.</span>
+        </a>
+      </div>
+
+      <!-- Our Take: AI That Reports to People, Not Pipelines (Dec 2025 — after Karpathy) -->
+      {articleMap['people-not-pipelines'] && (
+        <div class="tl-card tl-card-event">
+          <div class="tl-dot-article" aria-hidden="true"></div>
+          <a class="tl-link" href={`/articles/${articleMap['people-not-pipelines'].id}`}>
+            <span class="tl-arrow" aria-hidden="true">&#8599;</span>
+            <span class="tl-label">Our Take</span>
+            <span class="tl-date">{articleMap['people-not-pipelines'].data.date}</span>
+            <span class="tl-title">{articleMap['people-not-pipelines'].data.title}</span>
+            <span class="tl-teaser">{articleMap['people-not-pipelines'].data.cardSummary}</span>
           </a>
         </div>
-        <hr />
-      </li>
-      <li>
-        <hr />
-        <div class="timeline-middle">
-          <svg class="tl-icon tl-icon-context" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <rect x="3" y="2" width="14" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/>
-            <line x1="6" y1="6" x2="14" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="6" y1="10" x2="14" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="6" y1="14" x2="11" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
+      )}
+
+      <div class="tl-card tl-card-research">
+        <div class="tl-dot">
+          <Image class="tl-avatar" src={people['anish-acharya'].headshot} alt={people['anish-acharya'].name} width={96} height={96} quality={85} />
         </div>
-        <div class="timeline-end timeline-box tl-entry">
-          <a class="tl-link" href="https://blog.samaltman.com/the-gentle-singularity" target="_blank" rel="noopener">
-            <span class="tl-date">Jun 2025</span>
-            <span class="tl-title">The Gentle Singularity</span>
-            <span class="tl-source">Sam Altman</span>
-            <span class="tl-teaser">Intelligence as ambient utility — too cheap to meter, requiring no technical prerequisites. The transition happens through steady removal of friction, not a single breakthrough.</span>
+        <a class="tl-link" href="https://a16z.com/notes-on-ai-apps-in-2026/" target="_blank" rel="noopener">
+          <span class="tl-arrow" aria-hidden="true">&#8599;</span>
+          <span class="tl-date">Jan 2026</span>
+          <span class="tl-title">Notes on AI Apps in 2026</span>
+          <span class="tl-source">Anish Acharya, a16z</span>
+          <span class="tl-teaser">"Every team should be a software team." Acharya's thesis: the command line held back everyday users from AI's best capabilities, and the winners will be the tools that remove it.</span>
+        </a>
+      </div>
+
+      <!-- Our Take: A Race Every AI Company Is Running (Early Mar 2026 — before Claude Channels) -->
+      {articleMap['race'] && (
+        <div class="tl-card tl-card-event">
+          <div class="tl-dot-article" aria-hidden="true"></div>
+          <a class="tl-link" href={`/articles/${articleMap['race'].id}`}>
+            <span class="tl-arrow" aria-hidden="true">&#8599;</span>
+            <span class="tl-label">Our Take</span>
+            <span class="tl-date">{articleMap['race'].data.date}</span>
+            <span class="tl-title">{articleMap['race'].data.title}</span>
+            <span class="tl-teaser">{articleMap['race'].data.cardSummary}</span>
           </a>
         </div>
-        <hr />
-      </li>
-      <li>
-        <hr />
-        <div class="timeline-middle">
-          <svg class="tl-icon tl-icon-context" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <rect x="3" y="2" width="14" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/>
-            <line x1="6" y1="6" x2="14" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="6" y1="10" x2="14" y2="10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="6" y1="14" x2="11" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="timeline-end timeline-box tl-entry">
-          <a class="tl-link" href="https://www.lennysnewsletter.com/p/everyone-should-be-using-claude-code" target="_blank" rel="noopener">
-            <span class="tl-date">Oct 2025</span>
-            <span class="tl-title">Everyone Should Be Using Claude Code More</span>
-            <span class="tl-source">Lenny Rachitsky</span>
-            <span class="tl-teaser">"What if I don't have a 'coding project'?" — Helen Lee Kupp asked what most non-developers think. Rachitsky's answer: Claude Code isn't about coding. It's about getting things done.</span>
-          </a>
-        </div>
-        <hr />
-      </li>
-      <!-- Events: industry racing -->
-      <li>
-        <hr />
-        <div class="timeline-middle">
-          <svg class="tl-icon tl-icon-event" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <polygon points="10,2 12.5,8 19,8 14,12 16,19 10,15 4,19 6,12 1,8 7.5,8" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="timeline-end timeline-box tl-entry tl-entry-event">
-          <a class="tl-link" href="https://karpathy.bearblog.dev/year-in-review-2025/" target="_blank" rel="noopener">
-            <span class="tl-date">Dec 2025</span>
-            <span class="tl-title">2025 LLM Year in Review</span>
-            <span class="tl-source">Andrej Karpathy</span>
-            <span class="tl-teaser">Karpathy coined "vibe coding" — Collins Dictionary's Word of the Year 2025. Describing what you want is now sufficient to build it. The gatekeeper era is over.</span>
-          </a>
-        </div>
-        <hr />
-      </li>
-      <li>
-        <hr />
-        <div class="timeline-middle">
-          <svg class="tl-icon tl-icon-event" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <polygon points="10,2 12.5,8 19,8 14,12 16,19 10,15 4,19 6,12 1,8 7.5,8" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="timeline-end timeline-box tl-entry tl-entry-event">
-          <a class="tl-link" href="https://a16z.com/notes-on-ai-apps-in-2026/" target="_blank" rel="noopener">
-            <span class="tl-date">Jan 2026</span>
-            <span class="tl-title">Notes on AI Apps in 2026</span>
-            <span class="tl-source">Anish Acharya, a16z</span>
-            <span class="tl-teaser">"Every team should be a software team." The command line held back everyday users from the best AI capabilities — the winners will be the tools that eliminate it.</span>
-          </a>
-        </div>
-        <hr />
-      </li>
-      <!-- Our analysis articles -->
-      {sortedArticles.map((article) => (
-        <li>
-          <hr />
-          <div class="timeline-middle">
-            <svg class="tl-icon tl-icon-event" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <polygon points="10,2 12.5,8 19,8 14,12 16,19 10,15 4,19 6,12 1,8 7.5,8" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="timeline-end timeline-box tl-entry tl-entry-event">
-            <a class="tl-link" href={`/articles/${article!.id}`}>
-              <span class="tl-date">Our Analysis</span>
-              <span class="tl-title">{article!.data.title}</span>
-              <span class="tl-teaser">{article!.data.cardSummary}</span>
-            </a>
-          </div>
-          <hr />
-        </li>
-      ))}
+      )}
+
       <!-- Culmination: Claude Channels -->
-      <li>
-        <hr />
-        <div class="timeline-middle">
-          <svg class="tl-icon tl-icon-channels" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-            <circle cx="11" cy="11" r="9" fill="#c0522a" stroke="#c0522a" stroke-width="2"/>
-            <path d="M7 11l2.5 2.5L15 9" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <div class="tl-card tl-card-channels">
+        <div class="tl-dot">
+          <svg class="tl-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" fill="#c0522a" stroke="#c0522a" stroke-width="2"/>
+            <path d="M8 12l2.5 2.5L16 10" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <div class="timeline-end timeline-box tl-entry tl-entry-channels">
+        <div class="tl-card-body">
           <span class="tl-date">Mar 2026</span>
           <span class="tl-title">Claude Channels ships</span>
-          <span class="tl-teaser">Anthropic's answer: embed Claude directly into Discord and Telegram, connected to your real codebase. No new app. No terminal. Just a message in a thread you already have open.</span>
+          <span class="tl-teaser">Claude in Discord and Telegram, connected to your real codebase. No new app. No terminal. Just a message in a thread you already have open.</span>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </section>
 
   <section id="voices">
-    <h2>Voices</h2>
-    <p class="section-intro">Researchers, investors, and builders arriving at the same conclusion: the interface is the bottleneck, not the model.</p>
+    <span class="voices-label">Signal</span>
+    <h2 class="voices-heading">Voices</h2>
+    <p class="voices-intro">Different people, different contexts, same observation: the model isn't the bottleneck anymore. The interface is.</p>
     <div class="quotes-grid">
-      <figure class="pull-quote">
+      <figure class="voice-card">
+        <div class="voice-header">
+          <Image class="voice-avatar" src={people['andrej-karpathy'].headshot} alt={people['andrej-karpathy'].name} width={96} height={96} quality={85} />
+          <div class="voice-meta">
+            <span class="voice-name">Andrej Karpathy</span>
+            <span class="voice-role">YC AI 2025</span>
+          </div>
+        </div>
         <blockquote>"Everyone is a programmer because everyone speaks natural language."</blockquote>
-        <figcaption>Andrej Karpathy, YC AI 2025</figcaption>
       </figure>
-      <figure class="pull-quote">
+      <figure class="voice-card">
+        <div class="voice-header">
+          <Image class="voice-avatar" src={people['anish-acharya'].headshot} alt={people['anish-acharya'].name} width={96} height={96} quality={85} />
+          <div class="voice-meta">
+            <span class="voice-name">Anish Acharya</span>
+            <span class="voice-role">a16z, Jan 2026</span>
+          </div>
+        </div>
         <blockquote>"The command line UI has held back everyday consumers from the best capabilities of AI."</blockquote>
-        <figcaption>Anish Acharya, a16z, Jan 2026</figcaption>
       </figure>
-      <figure class="pull-quote">
+      <figure class="voice-card">
+        <div class="voice-header">
+          <Image class="voice-avatar" src={people['ethan-mollick'].headshot} alt={people['ethan-mollick'].name} width={96} height={96} quality={85} />
+          <div class="voice-meta">
+            <span class="voice-name">Ethan Mollick</span>
+            <span class="voice-role">Mar 2025</span>
+          </div>
+        </div>
         <blockquote>"AI effectively helped people bridge functional knowledge gaps, allowing them to think beyond their specialized training."</blockquote>
-        <figcaption>Ethan Mollick, Mar 2025</figcaption>
       </figure>
-      <figure class="pull-quote">
-        <blockquote>"If we do, we can make at least a down payment on the promises of dignity and equality that we owe to every human being on earth."</blockquote>
-        <figcaption>Dario Amodei, "Machines of Loving Grace," Oct 2024</figcaption>
+      <figure class="voice-card">
+        <div class="voice-header">
+          <Image class="voice-avatar" src={people['dario-amodei'].headshot} alt={people['dario-amodei'].name} width={96} height={96} quality={85} />
+          <div class="voice-meta">
+            <span class="voice-name">Dario Amodei</span>
+            <span class="voice-role">Dwarkesh Podcast, Feb 2026</span>
+          </div>
+        </div>
+        <blockquote>"There's one fast exponential that's the capability of the model. Then there's another fast exponential that's downstream of that, which is the diffusion of the model into the economy."</blockquote>
       </figure>
-      <figure class="pull-quote">
+      <figure class="voice-card">
+        <div class="voice-header">
+          <Image class="voice-avatar" src={people['daniela-amodei'].headshot} alt={people['daniela-amodei'].name} width={96} height={96} quality={85} />
+          <div class="voice-meta">
+            <span class="voice-name">Daniela Amodei</span>
+            <span class="voice-role">Fortune, Feb 2026</span>
+          </div>
+        </div>
         <blockquote>"Humans plus AI together actually create more meaningful work, more challenging work, more interesting work. It will also open the aperture to a lot of access and opportunity for many people."</blockquote>
-        <figcaption>Daniela Amodei, Fortune, Feb 2026</figcaption>
       </figure>
     </div>
   </section>
@@ -264,7 +267,6 @@ const sortedArticles = articleOrder
     </div>
     <div class="cta-bridge">
       <a href="https://code.claude.com/docs/en/channels" class="cta cta-large" target="_blank" rel="noopener">Set Up Claude Channels</a>
-      <p class="cta-note">Takes about 5 minutes &middot; No API key required &middot; Requires Claude Code 2.1.80+</p>
     </div>
   </section>
 </Layout>

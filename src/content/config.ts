@@ -7,6 +7,7 @@ const articles = defineCollection({
     title: z.string(),
     subtitle: z.string(),
     cardSummary: z.string(),
+    date: z.string().optional(),
     externalUrl: z.string().url().optional(),
   }),
 });
