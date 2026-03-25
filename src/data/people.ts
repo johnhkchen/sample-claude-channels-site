@@ -5,6 +5,7 @@ import dario from '../assets/headshots/dario-amodei.png';
 import daniela from '../assets/headshots/daniela-amodei.png';
 import altman from '../assets/headshots/sam-altman.png';
 import rachitsky from '../assets/headshots/lenny-rachitsky.png';
+import nadella from '../assets/headshots/satya-nadella.jpg';
 
 export const people = {
   'andrej-karpathy': {
@@ -48,6 +49,12 @@ export const people = {
     initials: 'LR',
     color: '#9b7cb8',
     headshot: rachitsky,
+  },
+  'satya-nadella': {
+    name: 'Satya Nadella',
+    initials: 'SN',
+    color: '#0078d4',
+    headshot: nadella,
   },
 } as const;
 
