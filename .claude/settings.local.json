@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__reader-relay__reply",
+      "WebSearch",
+      "Bash(curl -s \"https://daisyui.com/components/timeline/\")",
+      "Bash(python3:*)"
+    ]
+  }
+}
